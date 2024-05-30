@@ -5,54 +5,60 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bouncing Ball Animation</title>
     <style>
-        canvas {
-            border: 1px solid black;
-        }
-    </style>
+        body {display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;
+        background-color: #f0f0f0;}
+        canvas {background-color: #ffffff; border: 1px solid black;}
+     </style>
 </head>
-
 <body>
-    <canvas id="myCanvas" width="800" height="400"></canvas>
-
-    <script>
-        const canvas = document.getElementById('myCanvas');
-        const ctx = canvas.getContext('2d'); 
-
-// Set up HTML canvas for ball animation
-        console.log("Set up HTML canvas for animation.");
+    <canvas id="animationCanvas" width="800" height="400"></canvas>
+    <script src="script.js"></script>
+    </body>
+    </html>
 
 // Bouncing Ball constructor class
         class Ball {
-            constructor(x, y, radius, dx, dy, color) { this.x = x; this.y = y; this.radius = radius; 
+            constructor(x, y, radius, dx, dy, color) {
+                this.x = x; this.y = y; this.radius = radius; 
                 this.dx = dx;
                 this.dy = dy;
                 this.color = color;
-            }}
-
+            }
+            
 // Drawing method for the Ball class
-            draw() {ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); 
+            draw(ctx) {ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); 
                 ctx.fillStyle = this.color;
                 ctx.fill();
                 ctx.closePath();}
 
- // Update method with collision detection for Ball class
-            update() {if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {this.dx = -this.dx;}
-                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {this.dy = -this.dy;}
-                this.x += this.dx;
-                this.y += this.dy;}
+ // Update method with collision detection for Ball class { 
+    // Collision detection with the canvas walls
+    if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+        this.dx = -this.dx;
+    }
+    if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+        this.dy = -this.dy;
+    }
+
+// Updated Ball position
+this.x += this.dx;
+this.y += this.dy;
+ }}
         
 // Create a new Ball instance with test data
 const ball = new Ball(200, 160, 20, 2, 2, 'red');
 
- // Implement animation using setInterval
- setInterval(() => {ctx.clearRect(0, 0, canvas.width, canvas.height); ball.draw(); ball.update();}, 10); 
-        
-// Adjust the interval for smoother animation
-    </script>
-</body>
+// Getting the canvas and context
+const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d'); 
 
-</html> 
+// The Animation Loop
+function animate() ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+ball.draw(ctx); // Draw the ball 
+ball.update(canvas); // Update the ball's position
+
+ // Implement animation using setInterval
+ setInterval(animate, 10);
