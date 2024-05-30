@@ -1,3 +1,5 @@
+// U78784426
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,4 +45,14 @@
                 this.x += this.dx;
                 this.y += this.dy;}
         
+// Create a new Ball instance with test data
+const ball = new Ball(200, 160, 20, 2, 2, 'red');
 
+ // Implement animation using setInterval
+ setInterval(() => {ctx.clearRect(0, 0, canvas.width, canvas.height); ball.draw(); ball.update();}, 10); 
+        
+// Adjust the interval for smoother animation
+    </script>
+</body>
+
+</html> 
