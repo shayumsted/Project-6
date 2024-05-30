@@ -1,1 +1,1 @@
-# Project-6
+For this assignment, we will be creating a code and HTML that will actively show a ball bounce animation upon opening. The management of the animation and code will create a smooth, realistic visual. 
